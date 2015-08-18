@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name_lbl"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/textView" />
 
         <EditText
@@ -35,20 +36,29 @@
             android:ems="10"
             android:id="@+id/editText2"
             android:layout_weight="1" />
+    </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/clear"
             android:id="@+id/button"
-            android:onClick="buttonClicked" />
+            android:onClick="buttonClicked"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/button2"
+            android:layout_toStartOf="@+id/button2" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/send"
             android:id="@+id/button2"
-            android:onClick="button2Clicked" />
-    </LinearLayout>
-
+            android:onClick="button2Clicked"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 </LinearLayout>

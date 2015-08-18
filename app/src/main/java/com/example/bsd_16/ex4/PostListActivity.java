@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class PostListActivity extends AppCompatActivity {
@@ -24,10 +25,25 @@ public class PostListActivity extends AppCompatActivity {
 
         TextView textView1 = new TextView(this);  // Contain the user name
         textView1.setText(user_name);
+        textView1.setTextAppearance(this, android.R.style.TextAppearance_Large);
+        textView1.setId(1);
         TextView textView2 = new TextView(this);  // Contain the message
+        textView2.setTextAppearance(this, android.R.style.TextAppearance_Medium);
         textView2.setText(message);
-        Button button = new Button(this);  // Return to MainActivity.java
-        button.setText(R.string.back_lbl);
+        textView2.setId(2);
+
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.rootlayout);
+        RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams
+                (ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        relativeLayout.addView(textView1, layoutParams1);
+        RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams
+                (ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams2.addRule(RelativeLayout.BELOW, textView1.getId());
+        layoutParams2.addRule(RelativeLayout.ALIGN_LEFT, textView1.getId());
+        relativeLayout.addView(textView2, layoutParams2);
+
+        Button button = (Button) findViewById(R.id.button);  // The back button to MainActivity.java
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,11 +54,6 @@ public class PostListActivity extends AppCompatActivity {
                 nav2Main();
             }
         });
-
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.rootlayout);
-        linearLayout.addView(textView1);
-        linearLayout.addView(textView2);
-        linearLayout.addView(button);
     }
 
     @Override
