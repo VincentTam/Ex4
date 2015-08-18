@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public final static String USER_NAME = "com.example.bsd_16.NAME";
@@ -58,12 +59,24 @@ public class MainActivity extends AppCompatActivity {
         // Jump to another page while passing the input of this page
         // So an Intent object is needed
         Intent intent = new Intent(this, PostListActivity.class);
-        editText = (EditText) findViewById(R.id.editText);
-        editText2 = (EditText) findViewById(R.id.editText2);
-        String message = editText.getText().toString().trim();
-        String user_name = editText2.getText().toString().trim();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        intent.putExtra(USER_NAME, user_name);
-        startActivity(intent);
+        try {
+            editText = (EditText) findViewById(R.id.editText);
+            editText2 = (EditText) findViewById(R.id.editText2);
+            String message = editText.getText().toString().trim();
+            String user_name = editText2.getText().toString().trim();
+
+            // Forbid empty input in any fields
+            // The Strings message and user_name are never null
+            if (message.equals("") || user_name.equals("")) {
+                throw new IllegalArgumentException("Input should be non-empty.");
+            }
+
+            intent.putExtra(EXTRA_MESSAGE, message);
+            intent.putExtra(USER_NAME, user_name);
+            startActivity(intent);
+        } catch (IllegalArgumentException e) {
+            Toast toast = Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }

@@ -8,4 +8,5 @@
     <string name="hint">Enter your message here</string>
     <string name="title_activity_post_list">Post List</string>
     <string name="name_lbl">Name</string>
+    <string name="back_lbl">Create another message</string>
 </resources>

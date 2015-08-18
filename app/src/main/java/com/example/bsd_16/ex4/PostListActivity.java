@@ -1,9 +1,14 @@
 package com.example.bsd_16.ex4;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class PostListActivity extends AppCompatActivity {
 
@@ -11,6 +16,33 @@ public class PostListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_list);
+
+        // Get the message from the intent
+        Intent intent = getIntent();
+        String user_name = intent.getStringExtra(MainActivity.USER_NAME);
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+        TextView textView1 = new TextView(this);  // Contain the user name
+        textView1.setText(user_name);
+        TextView textView2 = new TextView(this);  // Contain the message
+        textView2.setText(message);
+        Button button = new Button(this);  // Return to MainActivity.java
+        button.setText(R.string.back_lbl);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * Jump to function nav2Main()
+                 * Why don't I just paste the function body of nav2Main() here?
+                 */
+                nav2Main();
+            }
+        });
+
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.rootlayout);
+        linearLayout.addView(textView1);
+        linearLayout.addView(textView2);
+        linearLayout.addView(button);
     }
 
     @Override
@@ -33,5 +65,10 @@ public class PostListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void nav2Main() {
+        Intent newIntent = new Intent(this, MainActivity.class);
+        startActivity(newIntent);
     }
 }
